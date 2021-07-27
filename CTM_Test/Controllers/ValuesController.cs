@@ -9,16 +9,20 @@ namespace CTM_Test.Controllers
 {
     public class ValuesController : ApiController
     {
-        // GET api/values
-        public IEnumerable<string> Get()
+        //GET api/values/5
+        public List<string> Get(int id)
         {
-            return new string[] { "value1", "value2" };
-        }
+            var result = new List<string>();
 
-        // GET api/values/5
-        public string Get(int id)
-        {
-            return "value";
+            if (id >= 1 && id <= 100)
+            {
+                for (int i = 1; i <= id; i++)
+                {
+                    result.Add(CheckMultiple(i));
+                }
+            }
+
+            return result;
         }
 
         // POST api/values
@@ -35,5 +39,33 @@ namespace CTM_Test.Controllers
         public void Delete(int id)
         {
         }
+
+        private string CheckMultiple(int n)
+        {
+            bool multiple3 = false;
+            bool multiple5 = false;
+            
+            if ((n % 3) == 0)
+                multiple3 = true;
+
+            if ((n % 5) == 0)
+                multiple5 = true;
+
+            if (multiple3 && multiple5) 
+            {
+                return "FizzBuzz";
+            }
+            else if (multiple5)
+            {
+                return "Buzz";
+            }
+            else if (multiple3)
+            {
+                return "Fizz";
+            }
+
+            return n.ToString();
+        }
+
     }
 }
